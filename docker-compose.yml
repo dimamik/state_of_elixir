@@ -29,12 +29,12 @@ services:
       - state_of_elixir_postgres
     env_file:
       - .env
-  watchtower:
+  state_of_elixir_watchtower:
     image: containrrr/watchtower
-    container_name: watchtower
+    container_name: state_of_elixir_watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 3600 state_of_elixir
+    command: --interval 300 state_of_elixir
 
 volumes:
   db:
