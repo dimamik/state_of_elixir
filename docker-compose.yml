@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  state_of_elixir_postgres:
+    image: postgres:14.6-alpine
+    container_name: state_of_elixir_postgres
+    restart: always
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    ports:
+      - 5434:5432
+    networks:
+      - default
+      - nginx_network
+    expose:
+      - 5432
+    volumes:
+      - db:/var/lib/postgresql/data
+  state_of_elixir:
+    image: dimamik/state_of_elixir${SYSTEM_TAG}
+    container_name: state_of_elixir
+    restart: always
+    networks:
+      - nginx_network
+    expose:
+      - 4000
+    depends_on:
+      - state_of_elixir_postgres
+    env_file:
+      - .env
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 3600 state_of_elixir
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  nginx_network:
+    name: nginx_network
