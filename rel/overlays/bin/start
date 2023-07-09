@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Initial setup
+set -e
+cd -P -- "$(dirname -- "$0")"
+
+# Migrate the database
+./state_of_elixir eval StateOfElixir.Release.migrate
+
+# A place for additional tasks
+# ...
+
+# Start the server
+PHX_SERVER=true exec ./state_of_elixir start

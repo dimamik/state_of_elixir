@@ -1,0 +1,100 @@
+version: 2
+jobs:
+  test:
+    parallelism: 1
+    docker:
+      - image: cimg/elixir:1.14.2
+        environment:
+          MIX_ENV: test
+      - image: cimg/postgres:14.6
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: state_of_elixir_test
+          POSTGRES_PASSWORD: postgres
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+      - restore_cache:
+          keys:
+            - v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v1-mix-cache-{{ .Branch }}
+            - v1-mix-cache
+      - restore_cache:
+          keys:
+            - v1-build-cache-{{ .Branch }}
+            - v1-build-cache
+      - run: mix do deps.get, compile
+      - save_cache:
+          key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          paths: "deps"
+      - save_cache:
+          key: v1-mix-cache-{{ .Branch }}
+          paths: "deps"
+      - save_cache:
+          key: v1-mix-cache
+          paths: "deps"
+      - save_cache:
+          key: v1-build-cache-{{ .Branch }}
+          paths: "_build"
+      - save_cache:
+          key: v1-build-cache
+          paths: "_build"
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: mix test
+      - store_test_results:
+          path: _build/test/lib/state_of_elixir
+
+  # TODO We need to verify that this deploy is secure & safe
+  deploy:
+    working_directory: /app
+    docker:
+      - image: docker:stable
+    steps:
+      - checkout
+      # Set up a separate Docker environment to run `docker` commands in
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+            - v1-{{ .Branch }}
+          paths:
+            - /caches/app.tar
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i /caches/app.tar | true
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build --cache-from=app -t dimamik/state_of_elixir .
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/app.tar dimamik/state_of_elixir
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/app.tar
+      - deploy:
+          name: Push application Docker image
+          command: |
+            echo $DOCKERHUB_ACCESS_TOKEN | docker login -u dimamik --password-stdin
+            docker push dimamik/state_of_elixir:latest
+            docker logout
+
+workflows:
+  version: 2
+  test-deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: main
