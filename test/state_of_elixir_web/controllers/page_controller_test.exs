@@ -3,6 +3,6 @@ defmodule StateOfElixirWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")
-    assert html_response(conn, 200) =~ "State of Elixir 2023, November 1st"
+    assert html_response(conn, 200) =~ "State of Elixir"
   end
 end

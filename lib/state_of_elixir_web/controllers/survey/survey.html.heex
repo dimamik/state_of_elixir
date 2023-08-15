@@ -1,0 +1,147 @@
+<h1>State of Elixir 2023</h1>
+
+<.form :let={f} for={@changeset} as={:update} action={Routes.survey_path(@conn, :submit)}>
+  <%= inputs_for f, :user_response, fn user_response_f -> %>
+    <.stepper>
+      <.stepper_item name="Introduction" index={1}>
+        <p>
+          CHAT_GPT GENERATED THINGS: <br />
+          Occasionally as an Elixir developer, one finds themselves tasked with making all-encompassing decisions about which implementation to select for their project. A while back, I was in such a predicament, struggling to choose the optimal styling approach for my Elixir app. I undertook deep research, gathering details about every available option, perusing viewpoints and articles, but still found myself uncertain about my final choice. I quickly identified a need for a single, organized comparison of these options, akin to what exists in the [State of JS](https://stateofjs.com/en-us/), but custom-shaped expressly for the Elixir ecosystem.
+        </p>
+        <p>
+          This sparked the origination of [State of Elixir](https://stateofelixir.com/). I discoursed the concept with [Sacha Greif](https://sachagreif.com/) from the [Devographics team](https://www.devographics.com/) (originator of State of JS), collated a group of skilled peers, and after many extensive work hours, along with garnering nearly 2000 responses from the community, we are delighted to unveil the findings of the first State of Elixir survey.
+        </p>
+        <p>
+          I trust that this inaugural edition will instigate an annual tradition and that the results offer you with a clear view of the existing state of Elixir, thereby assisting you in making informed choices for your present and prospective Elixir projects.
+        </p>
+      </.stepper_item>
+      <.stepper_item name="About you" index={2}>
+        <.form_question
+          label="What is your age?"
+          placeholder="age"
+          form={user_response_f}
+          type={:number}
+          min={15}
+          max={120}
+          field={:age}
+        />
+        <.form_question
+          label="What is the company size you are working for? (if applies)"
+          form={user_response_f}
+          type={:pick_one}
+          field={:company_size}
+        />
+        <.form_question
+          label="What is your country/region?"
+          form={user_response_f}
+          type={:pick_one}
+          search
+          field={:country}
+        />
+        <.form_question
+          label="Do you have high educataion degree?"
+          form={user_response_f}
+          type={:pick_one}
+          field={:higher_education_degree}
+        />
+        <.form_question
+          label="How many years of Elixir experience do you have?"
+          form={user_response_f}
+          type={:pick_one}
+          field={:elixir_exp_years}
+        />
+
+        <.form_question
+          label="How many years of overall experience do you have?"
+          form={user_response_f}
+          type={:pick_one}
+          field={:overall_exp_years}
+        />
+        <.form_question
+          label="What is your gender?"
+          form={user_response_f}
+          type={:pick_one}
+          field={:gender}
+        />
+        <.form_question
+          label="Choose the language you are speeking w/ your collegues"
+          form={user_response_f}
+          type={:pick_one}
+          field={:locale}
+          search
+        />
+        <.form_question
+          label="Yearly salary in USD"
+          form={user_response_f}
+          type={:pick_one}
+          field={:yearly_salary_in_usd}
+        />
+      </.stepper_item>
+      <.stepper_item name="Developer background" index={3}>
+        <.form_question
+          label="What is/was your previous main language besides Elixir"
+          form={user_response_f}
+          placeholder="Main language besides elixir"
+          type={:text}
+          field={:before_elixir}
+        />
+        <.form_question
+          label="Are you contributing to open source?"
+          form={user_response_f}
+          type={:pick_one}
+          field={:contribution_to_open_source}
+        />
+
+        <.form_question
+          label="Are you contributing to Elixir?"
+          form={user_response_f}
+          type={:pick_one}
+          field={:contribution_to_elixir}
+        />
+
+        <.form_question
+          label="Industry sector?"
+          form={user_response_f}
+          type={:pick_one}
+          field={:industry_sector}
+        />
+        <.form_question
+          label="What is the team you're working at size?"
+          form={user_response_f}
+          type={:pick_one}
+          field={:team_size}
+        />
+        <.form_question
+          label="What is the team you're working at size?"
+          form={user_response_f}
+          type={:pick_one}
+          field={:how_do_you_use_elixir}
+        />
+
+        <.form_question
+          label="Top Elixir app user count?"
+          form={user_response_f}
+          type={:pick_one}
+          field={:top_elixir_app_user_count}
+        />
+      </.stepper_item>
+
+      <.stepper_item name="Summary" index={4} last>
+        <.form_question
+          label="Survey feedback (feel free to leave any questions/suggestions in there)"
+          form={user_response_f}
+          type={:text}
+          placeholder="Feedback"
+          field={:survey_feedback}
+        />
+
+        <p>
+          Click submit to record your response.
+        </p>
+        <div class="flex justify-center">
+          <%= submit("Submit", class: "own_button rounded-none mt-10") %>
+        </div>
+      </.stepper_item>
+    </.stepper>
+  <% end %>
+</.form>

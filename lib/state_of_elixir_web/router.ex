@@ -17,7 +17,11 @@ defmodule StateOfElixirWeb.Router do
   scope "/", StateOfElixirWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/", HomeController, :start
+    get "/thanks", HomeController, :thanks
+
+    get "/survey", SurveyController, :survey
+    post "/survey", SurveyController, :submit
   end
 
   # Other scopes may use custom stacks.

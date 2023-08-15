@@ -21,7 +21,7 @@ defmodule StateOfElixirWeb do
 
   def router do
     quote do
-      use Phoenix.Router, helpers: false
+      use Phoenix.Router
 
       # Import common connection and controller functions to use in pipelines
       import Plug.Conn
@@ -46,6 +46,8 @@ defmodule StateOfElixirWeb do
       import StateOfElixirWeb.Gettext
 
       unquote(verified_routes())
+
+      alias StateOfElixirWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -76,6 +78,8 @@ defmodule StateOfElixirWeb do
 
       # Include general helpers for rendering HTML
       unquote(html_helpers())
+
+      alias StateOfElixirWeb.Router.Helpers, as: Routes
     end
   end
 

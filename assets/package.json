@@ -1,0 +1,9 @@
+{
+  "name": "assets",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT",
+  "dependencies": {
+    "tw-elements": "^1.0.0-beta3"
+  }
+}
