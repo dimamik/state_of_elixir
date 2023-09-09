@@ -2,7 +2,13 @@
   <h1>State of Elixir 2023</h1>
 </.link>
 
-<.form :let={f} for={@changeset} as={:update} action={Routes.survey_path(@conn, :submit)}>
+<.form
+  :let={f}
+  for={@changeset}
+  as={:update}
+  action={Routes.survey_path(@conn, :submit)}
+  class="mx-auto max-w-3xl"
+>
   <%= inputs_for f, :user_answers, fn user_answers_f -> %>
     <.stepper>
       <.stepper_item name="Introduction" index={1}>
