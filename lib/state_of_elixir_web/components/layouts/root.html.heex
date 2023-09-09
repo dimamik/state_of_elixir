@@ -7,14 +7,12 @@
     <.live_title>
       <%= assigns[:page_title] || "State of Elixir" %>
     </.live_title>
+    <link rel="icon" href="/images/elixir_logo.svg" type="image/x-icon" />
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
-    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
-    </script>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400&family=Poppins:wght@400;700&display=swap');
-    </style>
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"} />
   </head>
-  <body class="bg-white antialiased">
+  <body>
     <%= @inner_content %>
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js" />
   </body>
 </html>

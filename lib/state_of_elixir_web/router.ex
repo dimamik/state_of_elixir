@@ -17,7 +17,13 @@ defmodule StateOfElixirWeb.Router do
   scope "/", StateOfElixirWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/", HomeController, :start
+    get "/thanks", HomeController, :thanks
+
+    get "/survey", SurveyController, :survey
+    post "/survey", SurveyController, :submit
+
+    get "/*path", HomeController, :start
   end
 
   # Other scopes may use custom stacks.
@@ -38,7 +44,6 @@ defmodule StateOfElixirWeb.Router do
       pipe_through :browser
 
       live_dashboard "/dashboard", metrics: StateOfElixirWeb.Telemetry
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
 end

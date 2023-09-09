@@ -20,15 +20,6 @@ config :state_of_elixir, StateOfElixirWeb.Endpoint,
   pubsub_server: StateOfElixir.PubSub,
   live_view: [signing_salt: "twElRHN3"]
 
-# Configures the mailer
-#
-# By default it uses the "Local" adapter which stores the emails
-# locally. You can see the emails in your browser, at "/dev/mailbox".
-#
-# For production it's recommended to configure a different adapter
-# at the `config/runtime.exs`.
-config :state_of_elixir, StateOfElixir.Mailer, adapter: Swoosh.Adapters.Local
-
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.14.41",
@@ -41,7 +32,7 @@ config :esbuild,
 
 # Configure tailwind (the version is required)
 config :tailwind,
-  version: "3.2.4",
+  version: "3.3.0",
   default: [
     args: ~w(
       --config=tailwind.config.js
