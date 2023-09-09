@@ -1,12 +1,16 @@
 defmodule StateOfElixirWeb.SurveyForm do
+  @doc """
+  Components used in survey form. This module needs some love and refactoring.
+  Things to consider when refactoring:
+  - Convert the module to `Phoenix.Component`
+  - Group similar logic, simplifying `form_question` calls in survey
+  """
   use StateOfElixirWeb, :html
 
   import Phoenix.HTML.Form
   import Phoenix.HTML.Tag
 
-  alias StateOfElixir.Countries
-  alias StateOfElixir.Languages
-  alias StateOfElixir.Response.UserResponse
+  alias StateOfElixir.Response.UserAnswers
 
   def stepper(assigns) do
     ~H"""
@@ -17,7 +21,6 @@ defmodule StateOfElixirWeb.SurveyForm do
   end
 
   def stepper_item(assigns) do
-    # TODO Make the text inside the stepper look light
     stepper_class =
       if Map.get(assigns, :last) do
         "relative h-fit"
@@ -56,8 +59,16 @@ defmodule StateOfElixirWeb.SurveyForm do
     """
   end
 
-  def form_question(assigns) do
-    assigns = assign(assigns, :selected, Map.get(assigns.user_response, assigns.field))
+  def form_question(%{field: field} = assigns) do
+    required_class = if UserAnswers.required?(field), do: "required"
+    search = if Map.get(assigns, :search), do: "true", else: "false"
+    selected = Map.get(assigns.user_answers, field)
+
+    assigns =
+      assigns
+      |> assign(:search, search)
+      |> assign(:required_class, required_class)
+      |> assign(:selected, selected)
 
     ~H"""
     <%= case assigns.type do
@@ -80,15 +91,11 @@ defmodule StateOfElixirWeb.SurveyForm do
   end
 
   def custom_number_input(assigns) do
-    required_class = if UserResponse.required?(assigns.field), do: "required"
-
-    assigns = assign(assigns, :required_class, required_class)
-
     ~H"""
     <div>
       <label class={@required_class}><%= @label %></label>
       <div class="relative" data-te-input-wrapper-init>
-        <%= number_input(assigns.form, assigns.field,
+        <%= number_input(@form, @field,
           class:
             "peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0",
           min: @min,
@@ -108,15 +115,8 @@ defmodule StateOfElixirWeb.SurveyForm do
     """
   end
 
-  def custom_pick_one(assigns) do
-    required_class = if UserResponse.required?(assigns.field), do: "required"
-    search = if Map.get(assigns, :search), do: "true", else: "false"
-
-    assigns =
-      assigns
-      |> assign(:options, options(assigns))
-      |> assign(:search, search)
-      |> assign(:required_class, required_class)
+  def custom_pick_one(%{field: field} = assigns) do
+    assigns = assign(assigns, :options, UserAnswers.survey_options(field))
 
     ~H"""
     <div class="mt-5">
@@ -142,22 +142,13 @@ defmodule StateOfElixirWeb.SurveyForm do
   end
 
   # TODO We could use that to represent country flags, but it uses links
-  def custom_pick_one_with_icons(assigns) do
-    required_class = if UserResponse.required?(assigns.field), do: "required"
-
-    search = if Map.get(assigns, :search), do: "true", else: "false"
-
-    assigns =
-      assigns
-      |> assign(:options, options(assigns))
-      |> assign(:search, search)
-      |> assign(:required_class, required_class)
+  def custom_pick_one_with_icons(%{field: field} = assigns) do
+    assigns = assign(assigns, :options, UserAnswers.survey_options(field))
 
     ~H"""
     <div class="mt-5">
       <label class={@required_class}><%= @label %></label>
 
-      <%!-- Move this to a separate function --%>
       <%= if @selected do %>
         <%= select(@form, @field, @options,
           "data-te-select-init": "",
@@ -186,11 +177,11 @@ defmodule StateOfElixirWeb.SurveyForm do
   end
 
   def custom_pick_many(assigns) do
-    required_class = if UserResponse.required?(assigns.field), do: "required"
+    required_class = if UserAnswers.required?(assigns.field), do: "required"
 
     assigns =
       assigns
-      |> assign(:options, options(assigns))
+      |> assign(:options, UserAnswers.survey_options(assigns.field))
       |> assign(:required_class, required_class)
 
     ~H"""
@@ -205,20 +196,8 @@ defmodule StateOfElixirWeb.SurveyForm do
     """
   end
 
-  def options(%{field: :country}) do
-    Countries.countries_with_flags()
-  end
-
-  def options(%{field: :locale}) do
-    Languages.languages()
-  end
-
-  def options(assigns) do
-    Map.fetch!(UserResponse.survey_options(), assigns.field)
-  end
-
   def custom_text(assigns) do
-    required_class = if UserResponse.required?(assigns.field), do: "required"
+    required_class = if UserAnswers.required?(assigns.field), do: "required"
 
     assigns = assign(assigns, :required_class, required_class)
 

@@ -2,7 +2,7 @@ defmodule StateOfElixirWeb.SurveyController do
   use StateOfElixirWeb, :controller
 
   alias StateOfElixirWeb.AttendanceVerifier
-  alias StateOfElixir.Response.UserResponse
+  alias StateOfElixir.Response.UserAnswers
 
   alias Ecto.Changeset
 
@@ -11,7 +11,7 @@ defmodule StateOfElixirWeb.SurveyController do
   def survey(conn, _params) do
     conn
     |> AttendanceVerifier.ensure_not_finished()
-    |> render("survey.html", changeset: Response.changeset(), user_response: %UserResponse{})
+    |> render("survey.html", changeset: Response.changeset(), user_answers: %UserAnswers{})
   end
 
   def submit(conn, %{"update" => params}) do
@@ -25,14 +25,14 @@ defmodule StateOfElixirWeb.SurveyController do
       {:error, %Changeset{} = changeset} ->
         handle_changeset_error(conn,
           changeset: changeset,
-          # user_response: changeset.changes.user_response.changes
-          user_response: get_user_response(changeset)
+          # user_answers: changeset.changes.user_answers.changes
+          user_answers: get_user_answers(changeset)
         )
     end
   end
 
-  defp get_user_response(%Changeset{} = response_changeset) do
-    response_changeset.changes.user_response.changes
+  defp get_user_answers(%Changeset{} = response_changeset) do
+    response_changeset.changes.user_answers.changes
   end
 
   defp add_request_metadata(params, conn) do

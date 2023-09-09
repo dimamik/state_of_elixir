@@ -1,6 +1,7 @@
 defmodule StateOfElixirWeb.AttendanceVerifier do
   import Phoenix.Controller, only: [redirect: 2]
 
+  alias Plug.Conn
   alias StateOfElixirWeb.Router.Helpers, as: Routes
 
   @doc """
@@ -11,7 +12,7 @@ defmodule StateOfElixirWeb.AttendanceVerifier do
     if Map.get(conn.cookies, "finished") == "true" do
       conn
       |> redirect(to: Routes.home_path(conn, :thanks))
-      |> Plug.Conn.halt()
+      |> Conn.halt()
     else
       conn
     end
@@ -21,9 +22,7 @@ defmodule StateOfElixirWeb.AttendanceVerifier do
   When the submitted form is considered valid, the server sets the cookie "finished" to "true".
   """
   def mark_as_finished(conn) do
-    conn
-    # TODO Uncomment this when the testing is done
-    # Plug.Conn.put_resp_cookie(conn, "finished", "true")
+    Conn.put_resp_cookie(conn, "finished", "true")
   end
 
   @doc """

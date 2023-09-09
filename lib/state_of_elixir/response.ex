@@ -4,11 +4,11 @@ defmodule StateOfElixir.Response do
 
   alias StateOfElixir.Repo
 
-  alias __MODULE__.{RequestMetadata, UserResponse}
+  alias __MODULE__.{RequestMetadata, UserAnswers}
 
   schema "responses" do
     embeds_one :request_metadata, RequestMetadata, on_replace: :update
-    embeds_one :user_response, UserResponse, on_replace: :update
+    embeds_one :user_answers, UserAnswers, on_replace: :update
 
     timestamps()
   end
@@ -17,7 +17,7 @@ defmodule StateOfElixir.Response do
     response
     |> cast(params, [])
     |> cast_embed(:request_metadata)
-    |> cast_embed(:user_response)
+    |> cast_embed(:user_answers)
   end
 
   def upsert(response, params \\ %{}) do

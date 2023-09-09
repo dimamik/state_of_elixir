@@ -20,12 +20,6 @@ config :state_of_elixir, StateOfElixirWeb.Endpoint,
   secret_key_base: "+RMuIw5arJK+a/qrif0ufLzG5+KbIZKcg9XtsXUbv0w10ZhBPk64EptzP99yWS6q",
   server: false
 
-# In test we don't send emails.
-config :state_of_elixir, StateOfElixir.Mailer, adapter: Swoosh.Adapters.Test
-
-# Disable swoosh api client as it is only required for production adapters.
-config :swoosh, :api_client, false
-
 # Print only warnings and errors during test
 config :logger, level: :warning
 

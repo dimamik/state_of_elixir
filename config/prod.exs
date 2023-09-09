@@ -12,9 +12,6 @@ import Config
 config :state_of_elixir, StateOfElixirWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json"
 
-# Configures Swoosh API Client
-config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: StateOfElixir.Finch
-
 # Do not print debug messages in production
 config :logger, level: :info
 

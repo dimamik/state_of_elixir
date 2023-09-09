@@ -1,5 +1,7 @@
-defmodule StateOfElixir.Response.UserResponse do
-  @moduledoc false
+defmodule StateOfElixir.Response.UserAnswers do
+  @moduledoc """
+  This embed represents the answers that the user provided to the survey form.
+  """
   use Ecto.Schema
 
   import Ecto.Changeset
@@ -134,7 +136,6 @@ defmodule StateOfElixir.Response.UserResponse do
     field :how_do_you_use_elixir, :string
     field :top_elixir_app_user_count, :string
 
-
     field :survey_feedback, :string
   end
 
@@ -144,17 +145,30 @@ defmodule StateOfElixir.Response.UserResponse do
     survey_feedback
   )a
 
-  def changeset(user_response, params) do
-    user_response
+  def changeset(user_answers, params) do
+    user_answers
     |> cast(params, __schema__(:fields))
     |> validate_required(__schema__(:fields) -- @optional_fields)
     |> validate_inclusions()
     |> validate_inclusion(:country, Countries.countries_with_flags())
     |> validate_inclusion(:locale, Languages.languages())
+    # validate_number/4 is returning an error without text interpolation
+    # >> "must be less than %{number}"
+    # But we can ignore it for now as we do frontend validation
     |> validate_number(:age, greater_than: 15, less_than: 100)
   end
 
-  def survey_options, do: @survey_options
+  def survey_options(:country) do
+    Countries.countries_with_flags()
+  end
+
+  def survey_options(:locale) do
+    Languages.languages()
+  end
+
+  def survey_options(field) when is_map_key(@survey_options, field) do
+    Map.fetch!(@survey_options, field)
+  end
 
   def required?(field) when is_atom(field) do
     field not in @optional_fields

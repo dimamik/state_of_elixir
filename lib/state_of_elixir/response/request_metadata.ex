@@ -1,7 +1,8 @@
 defmodule StateOfElixir.Response.RequestMetadata do
   @moduledoc """
-  This embed would attach the request metadata to each response to prevent spoofing the form
-  later on.
+  Represents metadata which is attached to each response to the survey form.
+  It is controversial whether we can store user's IP or not, but we've opted to do that for now
+  for now to filter out similar/suspicious responses later on.
   """
   use Ecto.Schema
 
