@@ -16,7 +16,7 @@ defmodule StateOfElixirWeb.HomeControllerTest do
       assert "/thanks" =
                conn
                |> put_req_cookie("finished", "true")
-               |> get(~p"/", nil)
+               |> get(~p"/")
                |> redirected_to()
     end
   end

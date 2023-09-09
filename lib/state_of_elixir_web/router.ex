@@ -22,6 +22,8 @@ defmodule StateOfElixirWeb.Router do
 
     get "/survey", SurveyController, :survey
     post "/survey", SurveyController, :submit
+
+    get "/*path", HomeController, :start
   end
 
   # Other scopes may use custom stacks.
