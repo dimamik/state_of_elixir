@@ -1,4 +1,5 @@
 defmodule StateOfElixir.Countries do
+  # TODO This has some compatibility issues, we need to rethink the approach
   @countries [
     {"Andorra", "🇦🇩"},
     {"United Arab Emirates", "🇦🇪"},

@@ -17,6 +17,7 @@ defmodule StateOfElixirWeb.SurveyForm do
   end
 
   def stepper_item(assigns) do
+    # TODO Make the text inside the stepper look light
     stepper_class =
       if Map.get(assigns, :last) do
         "relative h-fit"
@@ -40,7 +41,7 @@ defmodule StateOfElixirWeb.SurveyForm do
         </span>
         <span
           data-te-stepper-head-text-ref
-          class="text-neutral-500 after:absolute after:flex after:text-[0.8rem] after:content-[data-content] dark:text-neutral-300"
+          class="text-neutral-300 text-2xl after:absolute after:flex after:text-[0.8rem] after:content-[data-content] "
         >
           <%= @name %>
         </span>
@@ -56,6 +57,8 @@ defmodule StateOfElixirWeb.SurveyForm do
   end
 
   def form_question(assigns) do
+    assigns = assign(assigns, :selected, Map.get(assigns.user_response, assigns.field))
+
     ~H"""
     <%= case assigns.type do
       :number ->
@@ -89,7 +92,8 @@ defmodule StateOfElixirWeb.SurveyForm do
           class:
             "peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0",
           min: @min,
-          max: @max
+          max: @max,
+          value: @selected
         ) %>
 
         <label
@@ -118,11 +122,20 @@ defmodule StateOfElixirWeb.SurveyForm do
     <div class="mt-5">
       <label class={@required_class}><%= @label %></label>
 
-      <%= select(@form, @field, @options,
-        "data-te-select-init": "",
-        "data-te-select-placeholder": "Choose an option",
-        "data-te-select-filter": @search
-      ) %>
+      <%= if @selected do %>
+        <%= select(@form, @field, @options,
+          "data-te-select-init": "",
+          selected: @selected,
+          "data-te-select-filter": @search
+        ) %>
+      <% else %>
+        <%= select(@form, @field, @options,
+          "data-te-select-init": "",
+          "data-te-select-placeholder": "Choose an option",
+          "data-te-select-filter": @search
+        ) %>
+      <% end %>
+
       <%= error_tag(@form, @field) %>
     </div>
     """
@@ -144,11 +157,20 @@ defmodule StateOfElixirWeb.SurveyForm do
     <div class="mt-5">
       <label class={@required_class}><%= @label %></label>
 
-      <%= select(@form, @field, @options,
-        "data-te-select-init": "",
-        "data-te-select-placeholder": "Choose an option",
-        "data-te-select-filter": @search
-      ) %>
+      <%!-- Move this to a separate function --%>
+      <%= if @selected do %>
+        <%= select(@form, @field, @options,
+          "data-te-select-init": "",
+          selected: @selected,
+          "data-te-select-filter": @search
+        ) %>
+      <% else %>
+        <%= select(@form, @field, @options,
+          "data-te-select-init": "",
+          "data-te-select-placeholder": "Choose an option",
+          "data-te-select-filter": @search
+        ) %>
+      <% end %>
 
       <select data-te-select-init>
         <%= for {name, icon} <- @options do %>

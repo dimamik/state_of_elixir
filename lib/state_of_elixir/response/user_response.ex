@@ -112,7 +112,7 @@ defmodule StateOfElixir.Response.UserResponse do
         }
 
   @primary_key false
-  # TODO Add more fields
+  # TODO Add more sections
   embedded_schema do
     # First section - About you
     field :age, :integer
@@ -134,7 +134,6 @@ defmodule StateOfElixir.Response.UserResponse do
     field :how_do_you_use_elixir, :string
     field :top_elixir_app_user_count, :string
 
-    # TODO Add more sections
 
     field :survey_feedback, :string
   end

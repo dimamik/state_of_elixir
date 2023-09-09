@@ -22,6 +22,13 @@ body {
 }
 
 
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 3rem;
+    letter-spacing: 0.05em;
+}
+
 .svg-banner {
     @apply absolute -top-10 -left-48 w-max h-full opacity-50 z-[-1];
 }
