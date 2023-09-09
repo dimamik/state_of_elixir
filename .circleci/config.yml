@@ -49,14 +49,12 @@ jobs:
       - store_test_results:
           path: _build/test/lib/state_of_elixir
 
-  # TODO We need to verify that this deploy is secure & safe
   deploy:
     working_directory: /app
     docker:
       - image: docker:stable
     steps:
       - checkout
-      # Set up a separate Docker environment to run `docker` commands in
       - setup_remote_docker
       - restore_cache:
           keys:

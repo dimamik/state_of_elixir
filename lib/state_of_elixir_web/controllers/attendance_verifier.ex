@@ -1,5 +1,5 @@
 defmodule StateOfElixirWeb.AttendanceVerifier do
-  import Phoenix.Controller, only: [redirect: 2]
+  import Phoenix.Controller, only: [redirect: 2, render: 3]
 
   alias Plug.Conn
   alias StateOfElixirWeb.Router.Helpers, as: Routes
@@ -8,13 +8,13 @@ defmodule StateOfElixirWeb.AttendanceVerifier do
   Returns true if the user has finished the survey.
   The cookie "finished" is set by the server when the user submitted the valid answer to the last section (and the whole form).
   """
-  def ensure_not_finished(conn) do
+  def render_if_not_finished(conn, template, assigns \\ []) do
     if Map.get(conn.cookies, "finished") == "true" do
       conn
       |> redirect(to: Routes.home_path(conn, :thanks))
       |> Conn.halt()
     else
-      conn
+      render(conn, template, assigns)
     end
   end
 

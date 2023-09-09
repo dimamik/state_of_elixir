@@ -20,7 +20,6 @@ config :state_of_elixir, StateOfElixirWeb.Endpoint,
   pubsub_server: StateOfElixir.PubSub,
   live_view: [signing_salt: "twElRHN3"]
 
-
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.14.41",

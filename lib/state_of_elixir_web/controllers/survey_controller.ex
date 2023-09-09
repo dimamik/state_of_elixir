@@ -9,9 +9,10 @@ defmodule StateOfElixirWeb.SurveyController do
   alias StateOfElixir.Response
 
   def survey(conn, _params) do
-    conn
-    |> AttendanceVerifier.ensure_not_finished()
-    |> render("survey.html", changeset: Response.changeset(), user_answers: %UserAnswers{})
+    AttendanceVerifier.render_if_not_finished(conn, "survey.html",
+      changeset: Response.changeset(),
+      user_answers: %UserAnswers{}
+    )
   end
 
   def submit(conn, %{"update" => params}) do
