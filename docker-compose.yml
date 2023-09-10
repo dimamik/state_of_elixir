@@ -48,7 +48,7 @@ services:
     container_name: state_of_elixir_watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 300 state_of_elixir
+    command: --interval 300 --cleanup state_of_elixir
 
 volumes:
   db:
