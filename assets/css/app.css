@@ -54,7 +54,7 @@ h1 {
     flex-shrink: 0;
     border-radius: 4px;
     border: 1px solid var(--main-text-color, #D0C1E7);
-    background: var(--background, #40174C);
+    background: var(--background, #491b57);
 }
 
 .required::after {

@@ -102,7 +102,7 @@ ENV MIX_ENV="prod"
 COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/state_of_elixir ./
 
 # This is needed to grant execute permissions for generated script
-# Not sure if that this is a bug or indended behavior
+# Not sure if this is a bug or indended behavior
 RUN chmod +x /app/bin/start
 
 USER nobody

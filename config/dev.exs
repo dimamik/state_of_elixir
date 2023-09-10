@@ -65,6 +65,9 @@ config :state_of_elixir, StateOfElixirWeb.Endpoint,
 # Enable dev routes for dashboard and mailbox
 config :state_of_elixir, dev_routes: true
 
+# Disable attendance verifier to test "protected" routes in dev
+config :state_of_elixir, StateOfElixirWeb.AttendanceVerifier, enabled: false
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 

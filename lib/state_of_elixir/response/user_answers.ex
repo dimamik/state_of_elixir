@@ -143,6 +143,7 @@ defmodule StateOfElixir.Response.UserAnswers do
     before_elixir
     gender
     survey_feedback
+    yearly_salary_in_usd
   )a
 
   def changeset(user_answers, params) do

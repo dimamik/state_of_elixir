@@ -25,7 +25,7 @@
       <.stepper_item name="About you" index={2}>
         <.form_question
           label="What is your age?"
-          placeholder="age"
+          placeholder="Age"
           form={user_answers_f}
           user_answers={@user_answers}
           type={:number}
@@ -149,7 +149,12 @@
         />
       </.stepper_item>
 
-      <.stepper_item name="Summary" index={4} last>
+      <.stepper_item name="More questions" index={4}>
+      <h1>To be added...</h1>
+      </.stepper_item>
+
+
+      <.stepper_item name="Summary" index={5} last>
         <.form_question
           label="Survey feedback (feel free to leave any questions/suggestions in there)"
           form={user_answers_f}

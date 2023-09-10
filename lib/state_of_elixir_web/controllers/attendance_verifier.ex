@@ -4,12 +4,14 @@ defmodule StateOfElixirWeb.AttendanceVerifier do
   alias Plug.Conn
   alias StateOfElixirWeb.Router.Helpers, as: Routes
 
+  @attendance_verifier_enabled Application.compile_env!(:state_of_elixir, [__MODULE__, :enabled])
+
   @doc """
   Returns true if the user has finished the survey.
   The cookie "finished" is set by the server when the user submitted the valid answer to the last section (and the whole form).
   """
   def render_if_not_finished(conn, template, assigns \\ []) do
-    if Map.get(conn.cookies, "finished") == "true" do
+    if @attendance_verifier_enabled and Map.get(conn.cookies, "finished") == "true" do
       conn
       |> redirect(to: Routes.home_path(conn, :thanks))
       |> Conn.halt()
@@ -30,6 +32,10 @@ defmodule StateOfElixirWeb.AttendanceVerifier do
   The cookie "progress" is set by the client itself when the user submitted the answer to the first section.
   """
   def started_survey?(conn) do
-    not is_nil(Map.get(conn.cookies, "progress"))
+    if @attendance_verifier_enabled do
+      not is_nil(Map.get(conn.cookies, "progress"))
+    else
+      false
+    end
   end
 end

@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD
       - POSTGRES_DB
     ports:
-      - 5434:5432
+      - 5432:5432
     networks:
       - default
       - nginx_network
@@ -29,6 +29,20 @@ services:
       - state_of_elixir_postgres
     env_file:
       - .env
+  state_of_elixir_livebook:
+    image: ghcr.io/livebook-dev/livebook:0.9.2
+    container_name: state_of_elixir_livebook
+    restart: always
+    environment:
+      - LIVEBOOK_DEFAULT_RUNTIME
+      - LIVEBOOK_PASSWORD
+    volumes:
+      - livebook:/var/lib/livebook
+    networks:
+      - nginx_network
+    expose:
+      - 8080
+      - 8081
   state_of_elixir_watchtower:
     image: containrrr/watchtower
     container_name: state_of_elixir_watchtower
@@ -38,6 +52,8 @@ services:
 
 volumes:
   db:
+    driver: local
+  livebook:
     driver: local
 
 networks:
