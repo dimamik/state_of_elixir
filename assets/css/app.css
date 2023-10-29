@@ -10,7 +10,6 @@ body {
 }
 
 h1 {
-    font-family: Inter;
     font-size: 48px;
     font-style: normal;
     font-weight: 700;
@@ -18,7 +17,6 @@ h1 {
 }
 
 h2 {
-    font-family: Inter;
     font-size: 36px;
     font-style: normal;
     font-weight: 700;
@@ -26,8 +24,6 @@ h2 {
 }
 
 ul {
-    /* Font-related */
-    font-family: Inter;
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
