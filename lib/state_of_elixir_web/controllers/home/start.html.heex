@@ -1,36 +1,35 @@
-<div class="min-h-screen flex flex-col items-center mt-10">
-  <div class="text-center text-5xl md:text-8xl">
-    <div class="header">
-      <p class="mt-8">State of Elixir</p>
-      <p class="mt-8">2023</p>
-    </div>
+<div class="flex flex-col justify-between items-start flex-shrink-0 gap-6 sm:gap-8 mt-2 sm:mt-10 xs:max-w-xs sm:max-w-none">
+  <h1 class="flex"># State of Elixir 2023</h1>
+
+  <div class="flex flex-col items-start">
+    <h2>## Why?</h2>
+    <ul class="flex flex-col items-start flex-wrap flex-shrink-0">
+      <li>To bring attention to the language</li>
+      <li>To research the developers behind it</li>
+      <li>To help companies acquire confidence when migrating to Elixir</li>
+      <li>To analyse language strengths and weaknesses</li>
+    </ul>
   </div>
 
-  <div class="svg-banner">
-    <img src="images/elixir_logo.svg" alt="Elixir logo" />
+  <div class="flex flex-col items-start">
+    <h2>## When?</h2>
+    <ul class="flex flex-col items-start">
+      <li>
+        <b class="underline">December, 1st</b> - official launch
+      </li>
+    </ul>
   </div>
 
-  <div class="text-center text-xl md:text-3xl mt-10 md:mt-20 mr-4 px-8 md:px-20">
-    <h2 class="subheader">
-      This page is under heavy development, feel free to submit any issues to <a
-        href="https://github.com/dimamik/state_of_elixir"
-        target="_blank"
-      >
-        <i class="fab fa-github"></i>
-      </a>. <br />
-      The main purpose of this survey is to find out more about the current state of Elixir and its ecosystem.
-      <br />
-      The questions will be focused on discovering who uses Elixir and what is the experience of using it. They will cover its ecosystem, as well as research your opinion on the future of the language.
-    </h2>
-    <br />
-
-    <h2 class="subheader">
-      The survey will take you no more than 10 minutes and results will be available to public once we're done with processing them.
-    </h2>
+  <div class="flex flex-col items-start">
+    <h2>## Links</h2>
+    <ul class="flex flex-col items-start">
+      <li>
+        Suggest your questions
+        <a href="https://github.com/dimamik/state_of_elixir/discussions/11">here</a>
+      </li>
+      <li>
+        Contribute on <a href="https://github.com/dimamik/state_of_elixir">GitHub</a>
+      </li>
+    </ul>
   </div>
-  <%= button("Take survey!",
-    to: Routes.survey_path(@conn, :survey),
-    method: :get,
-    class: "own_button rounded-none mt-10 text-3xl text-gray-200"
-  ) %>
 </div>
