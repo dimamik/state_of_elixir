@@ -2,62 +2,55 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* TODO This needs to be cleaned */
-
-@import url('https://fonts.googleapis.com/css2?family=Cantata+One&display=swap');
-
 body {
     background-color: #40174C;
-    color: var(--smaller-text-color, #E6DDF3);
-    text-align: center;
+    color: var(--Main-text-color, #E9DCFD);
     font-family: Inter;
     position: relative;
 }
 
-
-.header {
-    color: var(--main-text-color, #D0C1E7);
-    text-align: center;
-    font-family: Cantata One;
-}
-
-
 h1 {
-    font-size: 2.5rem;
+    font-size: 48px;
+    font-style: normal;
     font-weight: 700;
-    line-height: 3rem;
-    letter-spacing: 0.05em;
+    line-height: 48.5px;
 }
 
-.svg-banner {
-    @apply absolute -top-10 -left-48 w-max h-full opacity-50 z-[-1];
+h2 {
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 48.5px;
 }
 
-.svg-banner img {
-    @apply object-cover w-fit h-full;
+ul {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 48.5px;
+    list-style: inside;
 }
 
-@media (max-width: 768px) {
-    .svg-banner {
-        @apply hidden;
+@media only screen and (max-width: 640px) {
+    h1 {
+        font-size: 34px;
+        font-weight: 700;
+        line-height: 48.5px;
+    }
+
+    h2 {
+        font-size: 27px;
+        font-weight: 700;
+        line-height: 48.5px;
+    }
+
+    ul {
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 34px;
     }
 }
 
-.own_button {
-    display: flex;
-    width: 254px;
-    height: 68px;
-    padding: 3px 8px;
-    justify-content: center;
-    align-items: center;
-    gap: 1px;
-    flex-shrink: 0;
-    border-radius: 4px;
-    border: 1px solid var(--main-text-color, #D0C1E7);
-    background: var(--background, #491b57);
-}
-
-.required::after {
-    content: ' *';
-    color: red;
+a {
+    text-decoration-line: underline;
 }
