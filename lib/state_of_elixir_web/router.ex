@@ -14,11 +14,6 @@ defmodule StateOfElixirWeb.Router do
     plug :accepts, ["json"]
   end
 
-  pipeline :auth do
-    import Plug.BasicAuth
-    plug :basic_auth, Application.compile_env(:state_of_elixir, :basic_auth)
-  end
-
   scope "/", StateOfElixirWeb do
     pipe_through :browser
 
@@ -31,5 +26,14 @@ defmodule StateOfElixirWeb.Router do
     pipe_through [:browser, :auth]
 
     live_dashboard "/dashboard", metrics: StateOfElixirWeb.Telemetry
+  end
+
+  defp auth(conn, _opts) do
+    %{username: username, password: password} =
+      :state_of_elixir
+      |> Application.fetch_env!(:basic_auth)
+      |> Map.new()
+
+    Plug.BasicAuth.basic_auth(conn, username: username, password: password)
   end
 end

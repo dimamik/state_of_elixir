@@ -52,6 +52,8 @@ config :phoenix, :json_library, Jason
 
 config :state_of_elixir, StateOfElixirWeb.AttendanceVerifier, enabled: true
 
+config :state_of_elixir, :basic_auth, username: "admin", password: "admin"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
