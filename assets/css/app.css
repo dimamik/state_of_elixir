@@ -11,7 +11,7 @@
 body {
     background-color: #40174C;
     color: var(--Main-text-color, #E9DCFD);
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     position: relative;
 }
 
