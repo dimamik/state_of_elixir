@@ -14,27 +14,22 @@ defmodule StateOfElixirWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    import Plug.BasicAuth
+    plug :basic_auth, Application.compile_env(:state_of_elixir, :basic_auth)
+  end
+
   scope "/", StateOfElixirWeb do
     pipe_through :browser
 
     get "/", HomeController, :start
-    get "/*route", Redirect, to: "/"
   end
 
-  # Enable LiveDashboard and Swoosh mailbox preview in development
-  if Application.compile_env(:state_of_elixir, :dev_routes) do
-    # If you want to use the LiveDashboard in production, you should put
-    # it behind authentication and allow only admins to access it.
-    # If your application does not have an admins-only section yet,
-    # you can use Plug.BasicAuth to set up some basic authentication
-    # as long as you are also using SSL (which you should anyway).
-    # TODO uncomment this once we have proper routing with custom errors
-    # import Phoenix.LiveDashboard.Router
+  import Phoenix.LiveDashboard.Router
 
-    scope "/dev" do
-      pipe_through :browser
+  scope "/admin" do
+    pipe_through [:browser, :auth]
 
-      # live_dashboard "/dashboard", metrics: StateOfElixirWeb.Telemetry
-    end
+    live_dashboard "/dashboard", metrics: StateOfElixirWeb.Telemetry
   end
 end
