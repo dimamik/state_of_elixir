@@ -50,7 +50,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :state_of_elixir, StateOfElixirWeb.AttendanceVerifier, enabled: true
+config :state_of_elixir, StateOfElixirWeb.AttendanceVerifier, enabled: false
 
 config :state_of_elixir, :basic_auth, username: "admin", password: "admin"
 

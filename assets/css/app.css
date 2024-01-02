@@ -51,3 +51,23 @@ ul {
 a {
     text-decoration-line: underline;
 }
+
+.own_button {
+    display: flex;
+    width: 254px;
+    font-size: 1.25rem;
+    height: 68px;
+    padding: 3px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    border: 1px solid var(--main-text-color, #D0C1E7);
+    background: var(--background, #491b57);
+}
+
+.required::after {
+    content: ' *';
+    color: #ff8c61;
+}
