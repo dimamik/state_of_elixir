@@ -109,10 +109,6 @@ defmodule StateOfElixir.Response.UserAnswers do
     ]
   }
 
-  @type t :: %__MODULE__{
-          age: pos_integer()
-        }
-
   @primary_key false
   # TODO Add more sections
   embedded_schema do
@@ -144,6 +140,7 @@ defmodule StateOfElixir.Response.UserAnswers do
     company_size
     gender
     survey_feedback
+    top_elixir_app_user_count
     yearly_salary_in_usd
   )a
 
@@ -152,11 +149,9 @@ defmodule StateOfElixir.Response.UserAnswers do
     |> cast(params, __schema__(:fields))
     |> validate_required(__schema__(:fields) -- @optional_fields)
     |> validate_inclusions()
-    |> validate_inclusion(:country, Countries.countries_with_flags())
-    |> validate_inclusion(:locale, Languages.languages())
-    # validate_number/4 is returning an error without text interpolation
+    # validate_number/4 returns an error without text interpolation
     # >> "must be less than %{number}"
-    # But we can ignore it for now as we do frontend validation
+    # But we can rely on frontend validation
     |> validate_number(:age, greater_than: 15, less_than: 100)
   end
 
