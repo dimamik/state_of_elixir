@@ -1,6 +1,6 @@
 defmodule StateOfElixir.Response.UserAnswers do
   @moduledoc """
-  This embed represents the answers that the user provided to the survey form.
+  Represents the answers that the user provided to the survey form.
   """
   use Ecto.Schema
 
@@ -141,6 +141,7 @@ defmodule StateOfElixir.Response.UserAnswers do
 
   @optional_fields ~w(
     before_elixir
+    company_size
     gender
     survey_feedback
     yearly_salary_in_usd

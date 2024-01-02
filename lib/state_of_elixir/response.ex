@@ -1,4 +1,8 @@
 defmodule StateOfElixir.Response do
+  @moduledoc """
+  Submitted form entry. Contains user's answers and metadata about the request.
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 

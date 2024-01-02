@@ -18,11 +18,15 @@ defmodule StateOfElixirWeb.Router do
     pipe_through :browser
 
     get "/", HomeController, :start
+    get "/thanks", HomeController, :thanks
+
+    get "/survey", SurveyController, :survey
+    post "/survey", SurveyController, :submit
   end
 
-  import Phoenix.LiveDashboard.Router
-
   scope "/admin" do
+    import Phoenix.LiveDashboard.Router
+
     pipe_through [:browser, :auth]
 
     live_dashboard "/dashboard", metrics: StateOfElixirWeb.Telemetry
