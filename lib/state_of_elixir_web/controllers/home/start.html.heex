@@ -24,8 +24,7 @@
     <h2>When?</h2>
     <ul class="flex flex-col items-start">
       <li>
-        <b class="underline">January, 1st</b>
-        - planned official launch. You can
+        As soon as we have a solid list of questions to ask. You can
         <a href={~p"/survey"}>
           leave feedback and complete the survey now.
         </a>
@@ -36,23 +35,21 @@
   <div class="flex flex-col items-start">
     <h2>Links</h2>
     <ul class="flex flex-col items-start">
-      <%= if not StateOfElixirWeb.AttendanceVerifier.finished?(@conn) do %>
-        <li>
-          <a href={~p"/survey"}>
-            Complete survey
-          </a>
-        </li>
-      <% end %>
-
-      <li>
-        <a href="https://livebook.stateofelixir.com/apps/state-of-elixir-2024">
-          See results
-        </a>
-      </li>
-
       <li>
         <a href="https://github.com/dimamik/state_of_elixir/discussions/11">
           Suggest your questions
+        </a>
+      </li>
+      <%= if not StateOfElixirWeb.AttendanceVerifier.finished?(@conn) do %>
+        <li>
+          <a href={~p"/survey"}>
+            Test survey
+          </a>
+        </li>
+      <% end %>
+      <li>
+        <a href="https://livebook.stateofelixir.com/apps/state-of-elixir-2024">
+          Livebook with results
         </a>
       </li>
       <li>
