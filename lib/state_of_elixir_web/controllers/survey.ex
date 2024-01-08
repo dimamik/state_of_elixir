@@ -2,7 +2,7 @@ defmodule StateOfElixirWeb.SurveyHTML do
   use StateOfElixirWeb, :html
 
   import StateOfElixirWeb.SurveyForm
-  import Phoenix.HTML.Form
+  use PhoenixHTMLHelpers
 
   embed_templates("survey/*")
 end

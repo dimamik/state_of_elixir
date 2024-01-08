@@ -6,9 +6,7 @@ defmodule StateOfElixirWeb.SurveyForm do
   - Group similar logic, simplifying `form_question` calls in survey
   """
   use StateOfElixirWeb, :html
-
-  import Phoenix.HTML.Form
-  import Phoenix.HTML.Tag
+  use PhoenixHTMLHelpers
 
   alias StateOfElixir.Response.UserAnswers
 
@@ -177,7 +175,7 @@ defmodule StateOfElixirWeb.SurveyForm do
     Enum.map(Keyword.get_values(form.errors, field), fn error ->
       content_tag(:span, extract_message(error),
         class: "text-[#ff8c61] text-[1rem]",
-        phx_feedback_for: input_name(form, field)
+        phx_feedback_for: Phoenix.HTML.Form.input_name(form, field)
       )
     end)
   end
