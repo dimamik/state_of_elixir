@@ -45,7 +45,7 @@ defmodule StateOfElixir.MixProject do
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2.1", runtime: Mix.env() == :dev},
       {:finch, "~> 0.13"},
-      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
       {:ecto_psql_extras, "~> 0.6"},
