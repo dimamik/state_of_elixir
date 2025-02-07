@@ -13,7 +13,7 @@ defmodule StateOfElixirWeb.SurveyForm do
   def stepper(assigns) do
     ~H"""
     <ul class="list-none">
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </ul>
     """
   end
@@ -38,20 +38,20 @@ defmodule StateOfElixirWeb.SurveyForm do
           data-te-stepper-head-icon-ref
           class="mr-3 flex h-[1.938rem] w-[1.938rem] items-center justify-center rounded-full bg-[#ebedef] text-sm font-medium text-[#40464f]"
         >
-          <%= @index %>
+          {@index}
         </span>
         <span
           data-te-stepper-head-text-ref
           class="text-neutral-300 text-2xl after:absolute after:flex after:text-[0.8rem] after:content-[data-content] "
         >
-          <%= @name %>
+          {@name}
         </span>
       </div>
       <div
         data-te-stepper-content-ref
         class="transition-[height, margin-bottom, padding-top, padding-bottom] left-0 pb-6 pl-[3.75rem] pr-6 duration-300 ease-in-out"
       >
-        <%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </div>
     </li>
     """
@@ -69,7 +69,7 @@ defmodule StateOfElixirWeb.SurveyForm do
       |> assign(:selected, selected)
 
     ~H"""
-    <%= case assigns.type do
+    {case assigns.type do
       :number ->
         custom_number_input(assigns)
 
@@ -81,25 +81,25 @@ defmodule StateOfElixirWeb.SurveyForm do
 
       :text ->
         custom_text(assigns)
-    end %>
+    end}
     """
   end
 
   def custom_number_input(assigns) do
     ~H"""
     <div>
-      <label class={@required_class}><%= @label %></label>
+      <label class={@required_class}>{@label}</label>
       <div class="relative" data-te-input-wrapper-init>
-        <%= number_input(@form, @field,
+        {number_input(@form, @field,
           class:
             "peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0",
           min: @min,
           max: @max,
           placeholder: @placeholder,
           value: @selected
-        ) %>
+        )}
       </div>
-      <%= error_tag(@form, @field) %>
+      {error_tag(@form, @field)}
     </div>
     """
   end
@@ -109,21 +109,21 @@ defmodule StateOfElixirWeb.SurveyForm do
 
     ~H"""
     <div class="mt-6">
-      <label class={@required_class}><%= @label %></label>
+      <label class={@required_class}>{@label}</label>
       <%= if @selected do %>
-        <%= select(@form, @field, @options,
+        {select(@form, @field, @options,
           "data-te-select-init": "",
           selected: @selected,
           "data-te-select-filter": @search
-        ) %>
+        )}
       <% else %>
-        <%= select(@form, @field, @options,
+        {select(@form, @field, @options,
           "data-te-select-init": "",
           "data-te-select-placeholder": "Choose an option",
           "data-te-select-filter": @search
-        ) %>
+        )}
       <% end %>
-      <%= error_tag(@form, @field) %>
+      {error_tag(@form, @field)}
     </div>
     """
   end
@@ -137,13 +137,13 @@ defmodule StateOfElixirWeb.SurveyForm do
       |> assign(:required_class, required_class)
 
     ~H"""
-    <label data-te-select-label-ref class={@required_class}><%= @label %></label>
-    <%= select(@form, @field, @options,
+    <label data-te-select-label-ref class={@required_class}>{@label}</label>
+    {select(@form, @field, @options,
       "data-te-select-init multiple": "",
       selected: "",
       "data-te-select-placeholder": "Choose an option"
-    ) %>
-    <%= error_tag(@form, @field) %>
+    )}
+    {error_tag(@form, @field)}
     """
   end
 
@@ -157,7 +157,7 @@ defmodule StateOfElixirWeb.SurveyForm do
 
     ~H"""
     <%= if @label do %>
-      <label class={@required_class}><%= @label %></label>
+      <label class={@required_class}>{@label}</label>
     <% end %>
 
     <div class="relative" data-te-input-wrapper-init>
@@ -166,7 +166,7 @@ defmodule StateOfElixirWeb.SurveyForm do
         rows="3"
         placeholder={@placeholder}
       ></textarea>
-      <%= error_tag(@form, @field) %>
+      {error_tag(@form, @field)}
     </div>
     """
   end
