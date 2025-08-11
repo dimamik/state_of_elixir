@@ -32,7 +32,7 @@ defmodule StateOfElixir.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.7.1"},
+      {:phoenix, "~> 1.8.0"},
       {:phoenix_ecto, "~> 4.4"},
       {:phoenix_html_helpers, "~> 1.0"},
       {:ecto_sql, "~> 3.6"},
