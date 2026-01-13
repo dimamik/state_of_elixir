@@ -1,10 +1,83 @@
-<.link navigate={~p"/"} class="z-10">
-  <h1>State of Elixir 2024</h1>
-</.link>
-
-<div class="absolute inset-0 flex items-center justify-center flex-col space-y-4">
-  <h2>Thanks for submitting a survey!</h2>
-  <.link navigate="https://livebook.stateofelixir.com/apps/state-of-elixir-2024">
-    <h2>See Results</h2>
+<div class="w-full max-w-2xl mx-auto text-center">
+  <!-- Back link -->
+  <.link
+    navigate={~p"/"}
+    class="inline-flex items-center gap-2 text-zinc-400 hover:text-violet-400 transition-colors mb-12 group"
+  >
+    <svg
+      class="w-4 h-4 group-hover:-translate-x-1 transition-transform"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M10 19l-7-7m0 0l7-7m-7 7h18"
+      />
+    </svg>
+    <span>Back to home</span>
   </.link>
+  
+<!-- Success Card -->
+  <div class="glass-card glow animate-fade-in-up">
+    <!-- Success Icon -->
+    <div class="mb-8">
+      <div class="mx-auto w-20 h-20 rounded-full bg-gradient-to-br from-green-400/20 to-emerald-500/20 flex items-center justify-center border border-green-500/30">
+        <svg
+          class="w-10 h-10 text-green-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 13l4 4L19 7"
+          />
+        </svg>
+      </div>
+    </div>
+    
+<!-- Title -->
+    <h1 class="text-3xl mb-4">Thank You!</h1>
+    
+<!-- Message -->
+    <p class="text-lg text-zinc-400 mb-8">
+      Your response has been recorded. You're helping shape the future of the Elixir community.
+    </p>
+    
+<!-- Divider -->
+    <div class="section-divider"></div>
+    
+<!-- CTA -->
+    <div class="mt-8">
+      <p class="text-sm text-zinc-500 mb-4">Want to see how others responded?</p>
+      <a
+        href="https://livebook.stateofelixir.com/apps/state-of-elixir-2026"
+        class="btn btn-primary"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+          />
+        </svg>
+        View Results
+      </a>
+    </div>
+    
+<!-- Share prompt -->
+    <div class="mt-8 pt-6 border-t border-white/5">
+      <p class="text-sm text-zinc-500">
+        Know other Elixir developers? Share the survey with them!
+      </p>
+    </div>
+  </div>
 </div>

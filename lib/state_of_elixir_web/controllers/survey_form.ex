@@ -1,9 +1,6 @@
 defmodule StateOfElixirWeb.SurveyForm do
-  @doc """
-  Components used in survey form. This module needs some love and refactoring.
-  Things to consider when refactoring:
-  - Convert the module to `Phoenix.Component`
-  - Group similar logic, simplifying `form_question` calls in survey
+  @moduledoc """
+  Components used in survey form.
   """
   use StateOfElixirWeb, :html
   use PhoenixHTMLHelpers
@@ -12,7 +9,7 @@ defmodule StateOfElixirWeb.SurveyForm do
 
   def stepper(assigns) do
     ~H"""
-    <ul class="list-none">
+    <ul class="list-none space-y-2">
       {render_slot(@inner_block)}
     </ul>
     """
@@ -21,9 +18,9 @@ defmodule StateOfElixirWeb.SurveyForm do
   def stepper_item(assigns) do
     stepper_class =
       if Map.get(assigns, :last) do
-        "relative h-fit"
+        "relative"
       else
-        "relative h-fit after:absolute after:left-[2.45rem] after:top-[3.6rem] after:mt-px after:h-[calc(100%-2.45rem)] after:w-px after:bg-[#e0e0e0] after:content-[''] dark:after:bg-neutral-600"
+        "relative after:absolute after:left-[1.75rem] after:top-[4rem] after:h-[calc(100%-3rem)] after:w-[2px] after:bg-gradient-to-b after:from-violet-500/40 after:to-violet-500/10 after:content-['']"
       end
 
     assigns = assign(assigns, :stepper_class, stepper_class)
@@ -32,24 +29,24 @@ defmodule StateOfElixirWeb.SurveyForm do
     <li data-te-stepper-step-ref class={@stepper_class}>
       <div
         data-te-stepper-head-ref
-        class="flex items-center p-6 leading-[1.3rem] no-underline after:bg-[#e0e0e0] after:content-[''] focus:outline-none dark:after:bg-neutral-600 dark:hover:bg-[#3b3b3b]"
+        class="flex items-center gap-4 p-4 rounded-xl transition-colors"
       >
         <span
           data-te-stepper-head-icon-ref
-          class="mr-3 flex h-[1.938rem] w-[1.938rem] items-center justify-center rounded-full bg-[#ebedef] text-sm font-medium text-[#40464f]"
+          class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 text-sm font-semibold text-white shadow-lg shadow-violet-500/25"
         >
           {@index}
         </span>
         <span
           data-te-stepper-head-text-ref
-          class="text-neutral-300 text-2xl after:absolute after:flex after:text-[0.8rem] after:content-[data-content] "
+          class="text-xl font-semibold text-zinc-100"
         >
           {@name}
         </span>
       </div>
       <div
         data-te-stepper-content-ref
-        class="transition-[height, margin-bottom, padding-top, padding-bottom] left-0 pb-6 pl-[3.75rem] pr-6 duration-300 ease-in-out"
+        class="pl-[3.5rem] pr-4 pb-6 space-y-6"
       >
         {render_slot(@inner_block)}
       </div>
@@ -87,12 +84,12 @@ defmodule StateOfElixirWeb.SurveyForm do
 
   def custom_number_input(assigns) do
     ~H"""
-    <div>
-      <label class={@required_class}>{@label}</label>
+    <div class="space-y-2">
+      <label class={"text-sm font-medium text-zinc-300 #{@required_class}"}>{@label}</label>
       <div class="relative" data-te-input-wrapper-init>
         {number_input(@form, @field,
           class:
-            "peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0",
+            "w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all",
           min: @min,
           max: @max,
           placeholder: @placeholder,
@@ -108,19 +105,21 @@ defmodule StateOfElixirWeb.SurveyForm do
     assigns = assign(assigns, :options, UserAnswers.survey_options(field))
 
     ~H"""
-    <div class="mt-6">
-      <label class={@required_class}>{@label}</label>
+    <div class="space-y-2">
+      <label class={"text-sm font-medium text-zinc-300 #{@required_class}"}>{@label}</label>
       <%= if @selected do %>
         {select(@form, @field, @options,
           "data-te-select-init": "",
           selected: @selected,
-          "data-te-select-filter": @search
+          "data-te-select-filter": @search,
+          class: "w-full"
         )}
       <% else %>
         {select(@form, @field, @options,
           "data-te-select-init": "",
-          "data-te-select-placeholder": "Choose an option",
-          "data-te-select-filter": @search
+          "data-te-select-placeholder": "Select an option",
+          "data-te-select-filter": @search,
+          class: "w-full"
         )}
       <% end %>
       {error_tag(@form, @field)}
@@ -137,13 +136,18 @@ defmodule StateOfElixirWeb.SurveyForm do
       |> assign(:required_class, required_class)
 
     ~H"""
-    <label data-te-select-label-ref class={@required_class}>{@label}</label>
-    {select(@form, @field, @options,
-      "data-te-select-init multiple": "",
-      selected: "",
-      "data-te-select-placeholder": "Choose an option"
-    )}
-    {error_tag(@form, @field)}
+    <div class="space-y-2">
+      <label data-te-select-label-ref class={"text-sm font-medium text-zinc-300 #{@required_class}"}>
+        {@label}
+      </label>
+      {select(@form, @field, @options,
+        "data-te-select-init multiple": "",
+        selected: "",
+        "data-te-select-placeholder": "Select options",
+        class: "w-full"
+      )}
+      {error_tag(@form, @field)}
+    </div>
     """
   end
 
@@ -156,17 +160,18 @@ defmodule StateOfElixirWeb.SurveyForm do
       |> assign_new(:label, fn -> nil end)
 
     ~H"""
-    <%= if @label do %>
-      <label class={@required_class}>{@label}</label>
-    <% end %>
-
-    <div class="relative" data-te-input-wrapper-init>
-      <textarea
-        class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-        rows="3"
-        placeholder={@placeholder}
-      ></textarea>
-      {error_tag(@form, @field)}
+    <div class="space-y-2">
+      <%= if @label do %>
+        <label class={"text-sm font-medium text-zinc-300 #{@required_class}"}>{@label}</label>
+      <% end %>
+      <div class="relative" data-te-input-wrapper-init>
+        <textarea
+          class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all resize-none"
+          rows="4"
+          placeholder={@placeholder}
+        ></textarea>
+        {error_tag(@form, @field)}
+      </div>
     </div>
     """
   end
@@ -174,7 +179,7 @@ defmodule StateOfElixirWeb.SurveyForm do
   defp error_tag(form, field) do
     Enum.map(Keyword.get_values(form.errors, field), fn error ->
       content_tag(:span, extract_message(error),
-        class: "text-[#ff8c61] text-[1rem]",
+        class: "text-pink-400 text-sm mt-1 block",
         phx_feedback_for: Phoenix.HTML.Form.input_name(form, field)
       )
     end)

@@ -1,160 +1,207 @@
-<.link navigate={~p"/"}>
-  <h1>State of Elixir 2024</h1>
-</.link>
+<div class="w-full max-w-3xl mx-auto">
+  <!-- Header -->
+  <header class="text-center mb-10 animate-fade-in-up">
+    <.link
+      navigate={~p"/"}
+      class="inline-flex items-center gap-2 text-zinc-400 hover:text-violet-400 transition-colors mb-6 group"
+    >
+      <svg
+        class="w-4 h-4 group-hover:-translate-x-1 transition-transform"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M10 19l-7-7m0 0l7-7m-7 7h18"
+        />
+      </svg>
+      <span>Back to home</span>
+    </.link>
+    <h1 class="text-3xl sm:text-4xl">State of Elixir 2026</h1>
+    <p class="text-zinc-400 mt-2">Help us understand the Elixir community</p>
+  </header>
+  
+<!-- Survey Form -->
+  <div class="glass-card animate-fade-in-up" style="animation-delay: 0.1s; opacity: 0;">
+    <.form
+      :let={f}
+      for={@changeset}
+      as={:update}
+      action={Routes.survey_path(@conn, :submit)}
+    >
+      <%= inputs_for f, :user_answers, fn user_answers_f -> %>
+        <.stepper>
+          <.stepper_item name="About you" index={1}>
+            <.form_question
+              label="What is your age?"
+              placeholder="Enter your age"
+              form={user_answers_f}
+              user_answers={@user_answers}
+              type={:number}
+              min={16}
+              max={99}
+              field={:age}
+            />
+            <.form_question
+              label="What is the company size you are working for?"
+              form={user_answers_f}
+              type={:pick_one}
+              user_answers={@user_answers}
+              field={:company_size}
+            />
+            <.form_question
+              label="What is your country/region?"
+              form={user_answers_f}
+              type={:pick_one}
+              user_answers={@user_answers}
+              search
+              field={:country}
+            />
+            <.form_question
+              label="Do you have a higher education degree?"
+              form={user_answers_f}
+              user_answers={@user_answers}
+              type={:pick_one}
+              field={:higher_education_degree}
+            />
+            <.form_question
+              label="How many years of Elixir experience do you have?"
+              form={user_answers_f}
+              user_answers={@user_answers}
+              type={:pick_one}
+              field={:elixir_exp_years}
+            />
+            <.form_question
+              label="How many years of overall experience do you have?"
+              form={user_answers_f}
+              user_answers={@user_answers}
+              type={:pick_one}
+              field={:overall_exp_years}
+            />
+            <.form_question
+              label="What is your gender?"
+              form={user_answers_f}
+              user_answers={@user_answers}
+              type={:pick_one}
+              field={:gender}
+            />
+            <.form_question
+              label="What language do you use when speaking with your colleagues?"
+              form={user_answers_f}
+              user_answers={@user_answers}
+              type={:pick_one}
+              field={:locale}
+              search
+            />
+            <.form_question
+              label="What is your yearly salary in USD?"
+              form={user_answers_f}
+              user_answers={@user_answers}
+              type={:pick_one}
+              field={:yearly_salary_in_usd}
+            />
+          </.stepper_item>
 
-<.form
-  :let={f}
-  for={@changeset}
-  as={:update}
-  action={Routes.survey_path(@conn, :submit)}
-  class="mx-auto max-w-3xl"
->
-  <%= inputs_for f, :user_answers, fn user_answers_f -> %>
-    <.stepper>
-      <.stepper_item name="About you" index={1}>
-        <.form_question
-          label="What is your age?"
-          placeholder="Age"
-          form={user_answers_f}
-          user_answers={@user_answers}
-          type={:number}
-          min={16}
-          max={99}
-          field={:age}
-        />
-        <.form_question
-          label="What is the company size you are working for?"
-          form={user_answers_f}
-          type={:pick_one}
-          user_answers={@user_answers}
-          field={:company_size}
-        />
-        <.form_question
-          label="What is your country/region?"
-          form={user_answers_f}
-          type={:pick_one}
-          user_answers={@user_answers}
-          search
-          field={:country}
-        />
-        <.form_question
-          label="Do you have high educataion degree?"
-          form={user_answers_f}
-          user_answers={@user_answers}
-          type={:pick_one}
-          field={:higher_education_degree}
-        />
-        <.form_question
-          label="How many years of Elixir experience do you have?"
-          form={user_answers_f}
-          user_answers={@user_answers}
-          type={:pick_one}
-          field={:elixir_exp_years}
-        />
+          <.stepper_item name="Developer background" index={2}>
+            <.form_question
+              label="What is (was) your previous main language besides Elixir?"
+              form={user_answers_f}
+              user_answers={@user_answers}
+              placeholder="e.g., Ruby, Python, JavaScript"
+              type={:text}
+              field={:before_elixir}
+            />
+            <.form_question
+              label="Are you contributing to open source?"
+              form={user_answers_f}
+              type={:pick_one}
+              user_answers={@user_answers}
+              field={:contribution_to_open_source}
+            />
+            <.form_question
+              label="Are you contributing to Elixir?"
+              form={user_answers_f}
+              type={:pick_one}
+              user_answers={@user_answers}
+              field={:contribution_to_elixir}
+            />
+            <.form_question
+              label="What is your company's industry sector?"
+              form={user_answers_f}
+              type={:pick_one}
+              user_answers={@user_answers}
+              field={:industry_sector}
+            />
+            <.form_question
+              label="What is the size of the team you're working on?"
+              form={user_answers_f}
+              type={:pick_one}
+              user_answers={@user_answers}
+              field={:team_size}
+            />
+            <.form_question
+              label="How do you use Elixir?"
+              form={user_answers_f}
+              type={:pick_one}
+              user_answers={@user_answers}
+              field={:how_do_you_use_elixir}
+            />
+            <.form_question
+              label="Top Elixir app user count?"
+              form={user_answers_f}
+              type={:pick_one}
+              user_answers={@user_answers}
+              field={:top_elixir_app_user_count}
+            />
+          </.stepper_item>
 
-        <.form_question
-          label="How many years of overall experience do you have?"
-          form={user_answers_f}
-          user_answers={@user_answers}
-          type={:pick_one}
-          field={:overall_exp_years}
-        />
-        <.form_question
-          label="What is your gender?"
-          form={user_answers_f}
-          user_answers={@user_answers}
-          type={:pick_one}
-          field={:gender}
-        />
-        <.form_question
-          label="What language do you use when speaking with your colleagues?"
-          form={user_answers_f}
-          user_answers={@user_answers}
-          type={:pick_one}
-          field={:locale}
-          search
-        />
-        <.form_question
-          label="What is your yearly salary in USD?"
-          form={user_answers_f}
-          user_answers={@user_answers}
-          type={:pick_one}
-          field={:yearly_salary_in_usd}
-        />
-      </.stepper_item>
-      <.stepper_item name="Developer background" index={2}>
-        <.form_question
-          label="What is (was) your previous main language besides Elixir?"
-          form={user_answers_f}
-          user_answers={@user_answers}
-          placeholder="Main language besides elixir"
-          type={:text}
-          field={:before_elixir}
-        />
-        <.form_question
-          label="Are you contributing to open source?"
-          form={user_answers_f}
-          type={:pick_one}
-          user_answers={@user_answers}
-          field={:contribution_to_open_source}
-        />
+          <.stepper_item name="More questions" index={3}>
+            <div class="flex items-center gap-3 p-4 rounded-lg bg-white/5 border border-white/10">
+              <svg
+                class="w-5 h-5 text-violet-400 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <p class="text-zinc-400 text-sm">More questions coming soon...</p>
+            </div>
+          </.stepper_item>
 
-        <.form_question
-          label="Are you contributing to Elixir?"
-          form={user_answers_f}
-          type={:pick_one}
-          user_answers={@user_answers}
-          field={:contribution_to_elixir}
-        />
+          <.stepper_item name="Summary" index={4} last>
+            <.form_question
+              form={user_answers_f}
+              type={:text}
+              user_answers={@user_answers}
+              placeholder="Feel free to leave any questions, suggestions, or feedback here"
+              field={:survey_feedback}
+            />
 
-        <.form_question
-          label="What is your company's industry sector?"
-          form={user_answers_f}
-          type={:pick_one}
-          user_answers={@user_answers}
-          field={:industry_sector}
-        />
-        <.form_question
-          label="What is the size of the team you're working at?"
-          form={user_answers_f}
-          type={:pick_one}
-          user_answers={@user_answers}
-          field={:team_size}
-        />
-        <.form_question
-          label="How do you use Elixir?"
-          form={user_answers_f}
-          type={:pick_one}
-          user_answers={@user_answers}
-          field={:how_do_you_use_elixir}
-        />
-
-        <.form_question
-          label="Top Elixir app user count?"
-          form={user_answers_f}
-          type={:pick_one}
-          user_answers={@user_answers}
-          field={:top_elixir_app_user_count}
-        />
-      </.stepper_item>
-
-      <.stepper_item name="More questions" index={3}>
-        <p>To be added...</p>
-      </.stepper_item>
-
-      <.stepper_item name="Summary" index={4} last>
-        <.form_question
-          form={user_answers_f}
-          type={:text}
-          user_answers={@user_answers}
-          placeholder="Feel free to leave here any questions or suggestions"
-          field={:survey_feedback}
-        />
-
-        <div class="flex justify-center">
-          {submit("Submit responses", class: "own_button rounded-none mt-10 mb-4")}
-        </div>
-      </.stepper_item>
-    </.stepper>
-  <% end %>
-</.form>
+            <div class="flex justify-center pt-6">
+              <button type="submit" class="btn btn-primary text-lg px-8 py-4">
+                <span>Submit Responses</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </button>
+            </div>
+          </.stepper_item>
+        </.stepper>
+      <% end %>
+    </.form>
+  </div>
+</div>
