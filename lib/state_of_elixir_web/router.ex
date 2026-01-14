@@ -22,6 +22,8 @@ defmodule StateOfElixirWeb.Router do
 
     get "/survey", SurveyController, :survey
     post "/survey", SurveyController, :submit
+
+    live "/results", ResultsLive, :index
   end
 
   scope "/admin" do

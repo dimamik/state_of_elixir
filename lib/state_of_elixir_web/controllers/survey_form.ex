@@ -153,10 +153,12 @@ defmodule StateOfElixirWeb.SurveyForm do
 
   def custom_text(assigns) do
     required_class = if UserAnswers.required?(assigns.field), do: "required"
+    selected = Map.get(assigns.user_answers, assigns.field)
 
     assigns =
       assigns
       |> assign(:required_class, required_class)
+      |> assign(:selected, selected)
       |> assign_new(:label, fn -> nil end)
 
     ~H"""
@@ -165,11 +167,13 @@ defmodule StateOfElixirWeb.SurveyForm do
         <label class={"text-sm font-medium text-zinc-300 #{@required_class}"}>{@label}</label>
       <% end %>
       <div class="relative" data-te-input-wrapper-init>
-        <textarea
-          class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all resize-none"
-          rows="4"
-          placeholder={@placeholder}
-        ></textarea>
+        {textarea(@form, @field,
+          class:
+            "w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all resize-none",
+          rows: 4,
+          placeholder: @placeholder,
+          value: @selected
+        )}
         {error_tag(@form, @field)}
       </div>
     </div>

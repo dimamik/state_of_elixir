@@ -179,27 +179,6 @@
         </li>
         <li>
           <a
-            href="https://livebook.stateofelixir.com/apps/state-of-elixir-2026"
-            class="flex items-center gap-2 text-zinc-400 hover:text-violet-400 transition-colors group"
-          >
-            <svg
-              class="w-4 h-4 text-zinc-500 group-hover:text-violet-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-              />
-            </svg>
-            <span>View results in Livebook</span>
-          </a>
-        </li>
-        <li>
-          <a
             href="https://github.com/dimamik/state_of_elixir"
             class="flex items-center gap-2 text-zinc-400 hover:text-violet-400 transition-colors group"
           >
@@ -220,18 +199,31 @@
 <!-- CTA Section -->
   <%= if not StateOfElixirWeb.AttendanceVerifier.finished?(@conn) do %>
     <div class="text-center animate-fade-in-up" style="animation-delay: 0.5s; opacity: 0;">
-      <a href={~p"/survey"} class="btn btn-primary text-lg px-8 py-4">
-        Take the Survey
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M13 7l5 5m0 0l-5 5m5-5H6"
-          />
-        </svg>
-      </a>
-      <p class="text-sm text-zinc-500 mt-4">Takes about 3-5 minutes</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href={~p"/survey"} class="btn btn-primary text-lg px-8 py-4">
+          Take the Survey
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7l5 5m0 0l-5 5m5-5H6"
+            />
+          </svg>
+        </a>
+        <a href={~p"/results"} class="btn btn-secondary text-lg px-8 py-4">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+            />
+          </svg>
+          Explore the Data
+        </a>
+      </div>
+      <p class="text-sm text-zinc-500 mt-4">Survey takes about 3-5 minutes</p>
     </div>
   <% else %>
     <div class="text-center animate-fade-in-up" style="animation-delay: 0.5s; opacity: 0;">
@@ -246,7 +238,18 @@
         </svg>
         <span class="text-green-400">Survey completed</span>
       </div>
-      <p class="text-zinc-400">Thank you for your contribution!</p>
+      <p class="text-zinc-400 mb-6">Thank you for your contribution!</p>
+      <a href={~p"/results"} class="btn btn-primary text-lg px-8 py-4">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+          />
+        </svg>
+        Explore the Data
+      </a>
     </div>
   <% end %>
 </div>
