@@ -11,8 +11,8 @@
 #   - https://pkgs.org/ - resource for finding needed packages
 #   - Ex: hexpm/elixir:1.14.2-erlang-25.2-debian-bullseye-20221004-slim
 #
-ARG ELIXIR_VERSION=1.15.7
-ARG OTP_VERSION=26.1.2
+ARG ELIXIR_VERSION=1.19.5
+ARG OTP_VERSION=28.3.1
 ARG DEBIAN_VERSION=bullseye-20231009-slim
 
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
@@ -22,7 +22,7 @@ FROM ${BUILDER_IMAGE} as builder
 
 # install build dependencies
 RUN apt-get update -y && apt-get install -y build-essential git curl \
-    && apt-get clean && rm -f /var/lib/apt/lists/*_*
+  && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
 # install nodejs
 RUN set -uex; \
@@ -42,7 +42,7 @@ WORKDIR /app
 
 # install hex + rebar
 RUN mix local.hex --force && \
-    mix local.rebar --force
+  mix local.rebar --force
 
 # set build ENV
 ENV MIX_ENV="prod"

@@ -3,7 +3,7 @@ jobs:
   test:
     parallelism: 1
     docker:
-      - image: cimg/elixir:1.14.2
+      - image: cimg/elixir:1.19-erlang-27.2.2
         environment:
           MIX_ENV: test
       - image: cimg/postgres:14.6
